@@ -4,9 +4,9 @@
 
 require 'benchmark'
 
-names = ['Ana', 'John', 'Max', 'Kay']
+names = ['Yehuda', 'David', 'Matz', 'Sandi']
 
-grades = ['A+', 'B', 'C', 'D']
+grades = ['A', 'B-', 'A+', 'B+']
 
 projects = ['Sorting Suite', 'Black Thursday', 'Little Shop', 'The Pivot']
 
@@ -44,24 +44,24 @@ end
 
 # TODO: Lookups
 
-grade_hash = { 'Ana' => 4, 'John' => 3, 'Max' => 4, 'Kay' => 2 }
+grade_hash = { 'Yehuda' => 4, 'David' => 3, 'Matz' => 4, 'Sandi' => 2 }
 
 # Benchmarking
 
 Benchmark.bm(10) do |x|
-  x.report("Array indexing:") { get_grade('Ana', names, grades, projects) }
+  x.report("Array indexing:") { get_grade('Sandi', names, grades, projects) }
 end
 
 method_time = Benchmark.realtime do
-  get_grade('Ana', names, grades, projects)
+  get_grade('Sandi', names, grades, projects)
 end
 
 array_time = Benchmark.realtime do
-  grades[0]
+  grades[4]
 end
 
 hash_time = Benchmark.realtime do
-  grade_hash['Ana']
+  grade_hash['Sandi']
 end
 
 
