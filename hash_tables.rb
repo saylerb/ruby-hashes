@@ -17,9 +17,10 @@
 # Collection needs to be large enough to avoid collisions (255 seems like enough for small strings)
 
 class HashTable
-  attr_reader :table
+  attr_reader :buckets, :buckets_count
   def initialize
-    @table = Array.new(255)
+    @buckets_count = 255
+    @buckets = Array.new(buckets_count)
   end
 
   def hash(input, max)
@@ -32,12 +33,12 @@ class HashTable
     total % max
   end
 
-  def add(input)
-    table[hash(input, 255)] = input
+  def >>(input)
+    buckets[hash(input, buckets_count)] = input
   end
 
   def contains?(input)
-    !!table[hash(input, 255)]
+    !!buckets[hash(input, buckets_count)]
   end
 end
 
@@ -57,17 +58,17 @@ class TestHashTable < Minitest::Test
 
   def test_it_adds_string_to_the_table
     table = HashTable.new
-    table.add('hello')
-    table.add('world')
+    table >> 'hello'
+    table >> 'world'
 
-    assert_equal table.table[22], 'hello'
-    assert_equal table.table[42], 'world'
+    assert_equal table.buckets[22], 'hello'
+    assert_equal table.buckets[42], 'world'
   end
 
   def test_it_can_check_if_values_exist
     table = HashTable.new
-    table.add('hello')
-    table.add('world')
+    table >> 'hello'
+    table >> 'world'
 
     assert table.contains?('hello')
     assert table.contains?('world')
